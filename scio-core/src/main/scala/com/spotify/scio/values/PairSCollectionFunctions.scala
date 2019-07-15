@@ -20,11 +20,12 @@ package com.spotify.scio.values
 import java.lang.{Iterable => JIterable}
 import java.util.{Map => JMap}
 
+import cats.{Monoid, Semigroup}
 import com.spotify.scio.ScioContext
 import com.spotify.scio.coders.{Coder, CoderMaterializer}
 import com.spotify.scio.util._
 import com.spotify.scio.util.random.{BernoulliValueSampler, PoissonValueSampler}
-import com.twitter.algebird.{Aggregator, Hash128, Monoid, Semigroup}
+import com.twitter.algebird.{Aggregator, Hash128}
 import org.apache.beam.sdk.transforms._
 import org.apache.beam.sdk.values.{KV, PCollection, PCollectionView}
 import org.slf4j.LoggerFactory

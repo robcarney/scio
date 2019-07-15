@@ -26,6 +26,7 @@
 package com.spotify.scio.examples.extra
 
 import com.spotify.scio._
+import com.spotify.scio.instances._
 
 object MetricsExample {
 

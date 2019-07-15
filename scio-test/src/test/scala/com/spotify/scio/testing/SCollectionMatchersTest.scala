@@ -17,6 +17,7 @@
 
 package com.spotify.scio.testing
 
+import com.spotify.scio.instances._
 import com.spotify.scio.streaming.ACCUMULATING_FIRED_PANES
 import com.spotify.scio.values.WindowOptions
 import org.apache.beam.sdk.Pipeline.PipelineExecutionException

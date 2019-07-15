@@ -20,8 +20,8 @@ package com.spotify.scio.util
 import java.lang.{Iterable => JIterable}
 import java.util.{ArrayList => JArrayList, List => JList}
 
+import cats.{Monoid, Semigroup}
 import com.spotify.scio.coders.{Coder, CoderMaterializer}
-import com.twitter.algebird.{Monoid, Semigroup}
 import org.apache.beam.sdk.coders.{CoderRegistry, Coder => BCoder}
 import org.apache.beam.sdk.transforms.Combine.{CombineFn => BCombineFn}
 import org.apache.beam.sdk.transforms.DoFn.ProcessElement
@@ -291,33 +291,31 @@ private[scio] object Functions {
     new ReduceFn[T] {
       val vacoder = Coder[JList[T]]
       val vocoder = Coder[T]
-      private[this] val _sg = ClosureCleaner(sg) // defeat closure
 
       override def mergeAccumulators(accumulators: JIterable[JList[T]]): JList[T] = {
         val iter = accumulators.iterator()
         val acc: JArrayList[T] = new JArrayList[T]()
         while (iter.hasNext) {
-          Fns.reduceOption(iter.next())(_sg.plus(_, _)).foreach(acc.add(_))
+          Fns.reduceOption(iter.next())(sg.combine(_, _)).foreach(acc.add(_))
         }
 
-        val combined: T = _sg.sumOption(acc.asScala).get
+        val combined: T = acc.asScala.reduceLeftOption(sg.combine(_, _)).get
         val list = new JArrayList[T]()
         list.add(combined)
         list
       }
 
       override def reduceOption(accumulator: JIterable[T]): Option[T] =
-        Fns.reduceOption(accumulator)(_sg.plus(_, _))
+        Fns.reduceOption(accumulator)(sg.combine(_, _))
     }
 
   def reduceFn[T: Coder](mon: Monoid[T]): BCombineFn[T, JList[T], T] =
     new ReduceFn[T] {
       val vacoder = Coder[JList[T]]
       val vocoder = Coder[T]
-      private[this] val _mon = ClosureCleaner(mon) // defeat closure
 
       override def reduceOption(accumulator: JIterable[T]): Option[T] =
-        Fns.reduceOption(accumulator)(_mon.plus(_, _)).orElse(Some(_mon.zero))
+        Fns.reduceOption(accumulator)(mon.combine(_, _)).orElse(Some(mon.empty))
     }
 
 }

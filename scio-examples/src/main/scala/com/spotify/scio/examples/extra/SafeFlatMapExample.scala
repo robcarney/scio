@@ -27,6 +27,7 @@ package com.spotify.scio.examples.extra
 import com.spotify.scio.ContextAndArgs
 import com.spotify.scio.examples.common.ExampleData
 import com.spotify.scio.transforms._
+import com.spotify.scio.instances._
 
 object SafeFlatMapExample {
   def main(cmdlineArgs: Array[String]): Unit = {

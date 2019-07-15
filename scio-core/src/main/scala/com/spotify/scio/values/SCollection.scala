@@ -23,6 +23,7 @@ import java.io.PrintStream
 import java.lang.{Boolean => JBoolean, Double => JDouble, Iterable => JIterable}
 import java.util.concurrent.ThreadLocalRandom
 
+import cats.{Monoid, Semigroup}
 import com.google.datastore.v1.Entity
 import com.spotify.scio.ScioContext
 import com.spotify.scio.annotations.experimental
@@ -32,7 +33,7 @@ import com.spotify.scio.schemas.{Schema, SchemaMaterializer, To}
 import com.spotify.scio.testing.TestDataManager
 import com.spotify.scio.util._
 import com.spotify.scio.util.random.{BernoulliSampler, PoissonSampler}
-import com.twitter.algebird.{Aggregator, Monoid, Semigroup}
+import com.twitter.algebird.Aggregator
 import org.apache.avro.file.CodecFactory
 import org.apache.beam.sdk.coders.{Coder => BCoder}
 import org.apache.beam.sdk.io.{Compression, FileBasedSink}

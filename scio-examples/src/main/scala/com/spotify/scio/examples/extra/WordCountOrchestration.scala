@@ -24,6 +24,7 @@
 package com.spotify.scio.examples.extra
 
 import com.spotify.scio._
+import com.spotify.scio.instances._
 import com.spotify.scio.examples.common.ExampleData
 import com.spotify.scio.io.Tap
 import com.spotify.scio.values.SCollection

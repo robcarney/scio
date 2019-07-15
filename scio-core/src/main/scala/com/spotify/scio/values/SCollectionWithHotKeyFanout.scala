@@ -17,10 +17,11 @@
 
 package com.spotify.scio.values
 
+import cats.{Monoid, Semigroup}
 import com.spotify.scio.coders.Coder
 import com.spotify.scio.util.Functions
 import com.spotify.scio.util.TupleFunctions._
-import com.twitter.algebird.{Aggregator, Monoid, Semigroup}
+import com.twitter.algebird.Aggregator
 import org.apache.beam.sdk.transforms.Combine.PerKeyWithHotKeyFanout
 import org.apache.beam.sdk.transforms.{Combine, SerializableFunction}
 

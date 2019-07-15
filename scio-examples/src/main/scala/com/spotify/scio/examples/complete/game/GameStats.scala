@@ -32,6 +32,7 @@ package com.spotify.scio.examples.complete.game
 import java.util.TimeZone
 
 import com.spotify.scio._
+import com.spotify.scio.instances._
 import com.spotify.scio.bigquery._
 import com.spotify.scio.values.{SCollection, WindowOptions}
 import org.apache.beam.examples.common.{ExampleOptions, ExampleUtils}
